@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cprxpy7t63j7p"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2licc"]
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_2licc"]
+
+[node name="_MeshInstance3D_11" type="MeshInstance3D"]
+transform = Transform3D(56.05, 0, 0, 0, 56.05, 0, 0, 0, 56.05, 1.766, 0.623, 0)
+material_override = SubResource("StandardMaterial3D_2licc")
+mesh = SubResource("ImmediateMesh_2licc")

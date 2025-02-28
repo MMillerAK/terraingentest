@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://0fq6u8tajv6h"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_f8uit"]
+
+[resource]
+albedo_texture = SubResource("ImageTexture_f8uit")
+texture_filter = 0
+texture_repeat = false

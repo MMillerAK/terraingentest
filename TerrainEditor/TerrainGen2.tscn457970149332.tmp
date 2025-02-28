@@ -1,0 +1,127 @@
+[gd_scene load_steps=5 format=3 uid="uid://bbry7alumx5uy"]
+
+[ext_resource type="Script" uid="uid://bah3qqrdrmt53" path="res://Terrain2/Terrain.cs" id="1_v26bx"]
+[ext_resource type="Script" uid="uid://s5j3bqy67oqf" path="res://Terrain2/RaycastSummary.cs" id="2_1jwdj"]
+[ext_resource type="Script" uid="uid://cyt2img06l7bv" path="res://Terrain2/camgui.gd" id="4_rybg8"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_v26bx"]
+
+[node name="Terrain" type="Node3D" node_paths=PackedStringArray("ChunksContainer")]
+script = ExtResource("1_v26bx")
+mapDimensions = Vector2i(1, 1)
+ChunkDimensions = Vector3i(1, 1, 1)
+VoxelDimensions = Vector3(1, 1, 1)
+ChunksContainer = NodePath("ChunkContainer")
+
+[node name="ChunkContainer" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.366501, 0, -0.930418, 0, 1, 0, 0.930418, 0, 0.366501, -3.31586, 2.26357, 1.1037)
+current = true
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="Camera3D"]
+transform = Transform3D(1, -2.98023e-08, -1.3027e-15, 0, -4.37115e-08, 1, -2.98023e-08, -1, -4.37115e-08, 0, -3.147, -47.4523)
+light_energy = 8.392
+omni_range = 4096.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="raycast" type="PanelContainer" parent="CanvasLayer" node_paths=PackedStringArray("raycastLabel")]
+offset_right = 60.0
+offset_bottom = 23.0
+size_flags_horizontal = 8
+mouse_filter = 2
+script = ExtResource("2_1jwdj")
+raycastLabel = NodePath("VBoxContainer/Label")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/raycast"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/raycast/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "Raycast"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -153.0
+offset_bottom = 225.0
+grow_horizontal = 0
+size_flags_horizontal = 0
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "Raise:"
+
+[node name="Wall" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_v26bx")
+text = "Wall
+"
+
+[node name="Ramp" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_v26bx")
+text = "Ramp
+"
+
+[node name="Stairs" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_v26bx")
+text = "Stair"
+
+[node name="Edit" type="Label" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "Edit
+"
+
+[node name="slope" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_v26bx")
+text = "Slop
+"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+
+[node name="flatten" type="SpinBox" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="pick height" type="Button" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_v26bx")
+text = "Flatten
+"
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("4_rybg8")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 2.35395, 0, 91.9617)
+light_energy = 8.392
+omni_range = 4096.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 166.884, 0, -3.78024)
+light_energy = 8.392
+omni_range = 4096.0
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 4.32773, 0, -245.061)
+light_energy = 8.392
+omni_range = 4096.0

@@ -1,0 +1,171 @@
+[gd_scene load_steps=10 format=3 uid="uid://bbry7alumx5uy"]
+
+[ext_resource type="Script" uid="uid://bah3qqrdrmt53" path="res://TerrainEditor/Code/Terrain.cs" id="1_v26bx"]
+[ext_resource type="Script" uid="uid://s5j3bqy67oqf" path="res://TerrainEditor/Code/RaycastSummary.cs" id="2_1jwdj"]
+[ext_resource type="Material" uid="uid://0fq6u8tajv6h" path="res://TerrainEditor/Code/mainmat.tres" id="2_rybg8"]
+[ext_resource type="Script" uid="uid://ocs2ley2y5qh" path="res://addons/free_look_camera.gd" id="2_xfwf7"]
+[ext_resource type="Script" uid="uid://byeajuago2ueh" path="res://TerrainEditor/Code/TerrainRayCast3d.cs" id="4_depc1"]
+[ext_resource type="Texture2D" uid="uid://b7j4c6l47ej5m" path="res://crosshair.png" id="6_uo6pl"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_v26bx"]
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_bkbu0"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_bkbu0"]
+
+[node name="Terrain" type="Node3D" node_paths=PackedStringArray("ChunksContainer", "raycastSummary")]
+physics_interpolation_mode = 1
+script = ExtResource("1_v26bx")
+MaxHeight = 4
+BrushSize = 1
+ChunksGenerated = Vector2i(1, 1)
+ChunkVoxelDimensions = Vector3i(3, 3, 3)
+TextureDimensions = Vector2i(15, 15)
+textureUnits = 5
+ChunksContainer = NodePath("ChunkContainer")
+baseMat = ExtResource("2_rybg8")
+raycastSummary = NodePath("Camera3D/CanvasLayer/raycast")
+
+[node name="ChunkContainer" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.31586, 2.26357, 3.6749)
+current = true
+script = ExtResource("2_xfwf7")
+
+[node name="Ray" type="RayCast3D" parent="Camera3D"]
+unique_name_in_owner = true
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+target_position = Vector3(6.75, 0, 0)
+hit_from_inside = true
+hit_back_faces = false
+collide_with_areas = true
+debug_shape_thickness = 1
+script = ExtResource("4_depc1")
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="Camera3D"]
+transform = Transform3D(1, -2.98023e-08, -1.3027e-15, 0, -4.37115e-08, 1, -2.98023e-08, -1, -4.37115e-08, 1.40844, 0.0861797, 0.148908)
+light_energy = 2.0
+omni_range = 4071.97
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Camera3D"]
+
+[node name="raycast" type="PanelContainer" parent="Camera3D/CanvasLayer" node_paths=PackedStringArray("raycastLabel")]
+offset_right = 60.0
+offset_bottom = 23.0
+size_flags_horizontal = 8
+mouse_filter = 2
+script = ExtResource("2_1jwdj")
+raycastLabel = NodePath("VBoxContainer/Label")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera3D/CanvasLayer/raycast"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="Camera3D/CanvasLayer/raycast/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "Raycast"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera3D/CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -153.0
+offset_bottom = 225.0
+grow_horizontal = 0
+size_flags_horizontal = 0
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="Camera3D/CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "Raise:"
+
+[node name="Wall" type="Button" parent="Camera3D/CanvasLayer/VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_v26bx")
+text = "Wall
+"
+
+[node name="Ramp" type="Button" parent="Camera3D/CanvasLayer/VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_v26bx")
+text = "Ramp
+"
+
+[node name="Stairs" type="Button" parent="Camera3D/CanvasLayer/VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_v26bx")
+text = "Stair"
+
+[node name="Edit" type="Label" parent="Camera3D/CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "Edit
+"
+
+[node name="slope" type="Button" parent="Camera3D/CanvasLayer/VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_v26bx")
+text = "Slop
+"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Camera3D/CanvasLayer/VBoxContainer"]
+layout_mode = 2
+
+[node name="flatten" type="SpinBox" parent="Camera3D/CanvasLayer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="pick height" type="Button" parent="Camera3D/CanvasLayer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_v26bx")
+text = "Flatten
+"
+
+[node name="Button" type="Button" parent="Camera3D/CanvasLayer"]
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="TextureButton" type="TextureButton" parent="Camera3D/CanvasLayer/Button"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = SubResource("AnimatedTexture_bkbu0")
+
+[node name="TextureRect" type="TextureRect" parent="Camera3D/CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("6_uo6pl")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 2.35395, 0, 91.9617)
+light_energy = 8.392
+omni_range = 4096.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 166.884, 0, -3.78024)
+light_energy = 8.392
+omni_range = 4096.0
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 4.32773, 0, -245.061)
+light_energy = 8.392
+omni_range = 4096.0
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.18277)
+mesh = SubResource("CylinderMesh_bkbu0")
+skeleton = NodePath("")
